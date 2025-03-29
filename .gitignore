@@ -1,0 +1,46 @@
+# ─── Node.js ─────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ─── TypeScript ──────────────────────────────────────────
+dist/
+*.tsbuildinfo
+
+# ─── Templater / Obsidian Script Artifacts ──────────────
+*.templater.js
+scripts/
+*.output.js
+
+# ─── Logs ────────────────────────────────────────────────
+logs/
+*.log
+
+# ─── Test Output / Coverage ──────────────────────────────
+coverage/
+jest-cache/
+jest-output/
+__snapshots__/
+
+# ─── Environment Variables ───────────────────────────────
+.env
+.env.*
+
+# ─── OS-generated Files ──────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── VSCode ──────────────────────────────────────────────
+.vscode/
+
+# ─── JetBrains/WebStorm ──────────────────────────────────
+
+# Ignore everything in .idea by default
+.idea/**
+
+# Whitelist only the useful project-level configs
+!.idea/runConfigurations/
+!.idea/codeStyles/
+!.idea/inspectionProfiles/
+!.idea/modules.xml
