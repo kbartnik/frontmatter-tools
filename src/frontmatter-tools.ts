@@ -20,8 +20,6 @@ function fromYaml(yamlString: string): Record<string, any> {
         if (trimmed.startsWith('-')) {
             const itemLine = trimmed.slice(1).trim();
             const objMatch = itemLine.match(/^([^\s:]+):\s*(.+)$/);
-            const nextLine = lines[i + 1] || '';
-            const nextIndent = (nextLine.match(indentRegex) || [''])[0].length;
 
             // Case 1: Inline object (e.g. - name: Yann Andre)
             if (objMatch && !itemLine.includes('{') && !itemLine.includes('[')) {
@@ -76,7 +74,7 @@ function parseYamlValue(value: string): any {
 function toYaml(data: Record<string, any>): string {
     const lines: string[] = [];
     for (const [key, value] of Object.entries(data)) {
-        if (Array.isArray(value)) {
+        if (value instanceof Array) {
             lines.push(`${key}:`);
             for (const item of value) {
                 if (typeof item === 'object') {
@@ -106,19 +104,19 @@ export const frontmatterTools: FrontmatterService = {
     // Serializes a JavaScript object back into a YAML string.
     stringify: toYaml,
 
-    // Validates the structure of the frontmatter data.
+    // Validates the structure of the front matter data.
     isValid(data) {
         return (
             data &&
             typeof data.title === 'string' &&
             'video_img' in data &&
-            Array.isArray(data.performers)
+            data.performers instanceof Array
         );
     },
 
-    // Extracts and formats performer information from the frontmatter data.
+    // Extracts and formats performer information from the front matter data.
     getPerformers(data) {
-        const performers: Performer[] = Array.isArray(data.performers)
+        const performers: Performer[] = data.performers instanceof Array
             ? data.performers.map((p: any) => ({
                 name: p.name || '',
                 image: p.image || '',
@@ -127,12 +125,12 @@ export const frontmatterTools: FrontmatterService = {
         return performers;
     },
 
-    // Retrieves the video image from the frontmatter data, returning undefined if not present.
+    // Retrieves the video image from the front matter data, returning undefined if not present.
     getVideoImage(data) {
         return data.video_img ?? undefined;
     },
 
-    // Updates the frontmatter data with a patch, merging the two objects.
+    // Updates the front matter data with a patch, merging the two objects.
     update(data, patch) {
         return { ...data, ...patch };
     },

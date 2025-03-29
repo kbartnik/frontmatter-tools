@@ -1,5 +1,5 @@
 import { mock, instance, when, verify } from 'ts-mockito';
-import { FrontmatterService, Performer } from './frontmatter-service';
+import { FrontmatterService } from './frontmatter-service';
 import { frontmatterTools } from './frontmatter-tools';
 
 // This describe block tests the real implementation of the FrontmatterTools
